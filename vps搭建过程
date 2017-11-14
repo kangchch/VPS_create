@@ -1,0 +1,74 @@
+vps搭建过程
+一、准备工作
+
+1、选择vps商家。
+
+鄙人通过对比了 搬瓦工和vultr，选择了vultr，当时选择vultr很大的一个原因是因为搬瓦工不支持kvm(自行google)，但是现在搬瓦工已经支持kvm了，而且付款方式都是可以支付宝的，目前我用的是vultr，速度还算稳定，晚上youtube1080 无压力，后面有时间了打算换bwg试一下效果。
+介绍一下我目前用的配置，直接上图吧，节点是 New York(NJ)，目前只有这个服务器和Sydney服务器是2.5$/月的，其他节点都是5$起步，博主比较穷，所以....
+
+
+2、走流程
+
+好了，选择好了商家接下来就是，官网注册，选择节点，虚拟系统，配置，支付，等这套流程了，这套走完后，恭喜你，有了自己的vps站，可以随心所遇的使用了。
+
+注：附上vultr官网网址：https://my.vultr.com/
+Server Location (选择机房节点的)
+
+Server Type (选择你想要安装的操作系统的，这里我选择CentOs6 x64)
+
+Server Size (选择配置，价格等)
+
+选择完这3步，45678不用管，最下面会出现如下图，直接 Deploy Now
+
+至此，流程走完，可以开始搭建了
+
+二、搭建
+
+1、生成服务器
+
+在上面Deploy Now后，页面会自动跳转到Server栏，显示如下信息：
+
+说明你已经成功购买了这个机房的服务器！
+
+2、服务器信息
+
+如图，点击上面你的服务器，会显示你服务器的一些信息，这里，你的ip和密码，一会要用。
+
+3、生成你的ss账号
+
+这一步是要连接到你的服务器上去部署配置，这里我用的是xshell工具(平时远程开发也用的这个工具)，如果你熟悉其他的也可以，就是一个ssh界面工具，输入上面图中的ip Address、root、密码即可登录成功。如图(蛋疼...)：
+
+4、下载脚本
+
+wget --no-check-certificate https://github.com/kangchch/VPS_create/archive/master.zip
+输入这条命令 即可下载我在github上的脚本(ps:脚本是别人做的，我只是搬过来放在我的github上，方便自己用)，然后解压，需要的脚本就ok了。
+unizip master.zip
+
+5、安装脚本
+
+1> 进入到解压后的文件，给.sh文件权限安装即可
+
+  cd VPS_create-master
+  chmod a+x shadowsocks.sh # ss安装脚本
+  chmod a+x serverspeeder-all.sh # 锐速脚本(后面会讲到)
+2> 安装命令；
+./shadowsocks.sh 2>&1 | tee shadowsocks.log
+中间会提示你输入你的 ss server的密码和端口，如果不输入就是默认；
+注意：中间选择模式的步骤 选7即可，‘aes-256-cfb’
+3> 我们假装一切ok，安装完后会出现一些你的ip port passwd的信息 记录下来，或者在 /etc/shadowsocks.json里也有ss的信息
+
+   Congratulations, shadowsocks install completed!
+   Your Server IP:your_server_ip
+   Your Server Port:your_server_port
+   Your Password:your_password
+   Your Local IP:127.0.0.1
+   Your Local Port:1080
+   Your Encryption Method:aes-256-cfb
+这时候属于你的ss服务已经搭建好了，可以开始使用了。
+
+三、下载客户端使用
+
+去ishadow官网下载客户端(包括：windows,iphone/ipad, mac, android )都有
+地址直达 https://go.ishadowx.net/，下载好直接运行exe文件，按照上面的ip和密码等信息配置好后，就可以google了！
+
+四、关于锐速破解待后续更新
